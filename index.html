@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>title</title>
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="stylesheet" href="/leaflet/leaflet.css" />
+        <script src="/leaflet/leaflet.js"></script>
+
+    </head>
+    <body>
+        <div id="side2"></div>
+        <div id="map"></div>
+        <div id="side1">
+            <div id="buttonLabel">
+                <h3>Create marker</h3>
+                <input type="text" class="inputText inputText1" id="createName" placeholder="Name" autocomplete="off">
+                <input type="number" class="inputText inputNumber1" id="createX" placeholder="X map position" min="0" max="1000">
+                <input type="number" class="inputText inputNumber2" id="createY" placeholder="Y map position" min="0" max="1000">
+                <input type="button" class="inputButton inputButton1" id="createButton" value="create" onclick="placePoint()">
+            </div>
+        </div>
+        
+    </body>
+    <script>
+        var map = L.map('map', {
+            crs: L.CRS.Simple,
+            maxZoom: 4,
+            minZoom: 0,
+            render: L.SVG,
+        });
+
+        var bounds = [[0,0], [1000,1000]];
+        var image = L.imageOverlay('/GTAV8K.png', bounds).addTo(map);
+        map.fitBounds(bounds);
+
+        
+
+        var yx = L.latLng;
+
+        var xy = function(x, y) {
+            if (Array.isArray(x)) {    // When doing xy([x, y]);
+                return yx(x[1], x[0]);
+            }
+            return yx(y, x);  // When doing xy(x, y);
+        };
+
+        var sol      = xy(175.2, 145.0);
+        var mizar    = xy( 41.6, 130.1);
+        var kruegerZ = xy( 13.4,  56.5);
+        var deneb    = xy(218.7,   8.3);
+
+        L.marker(     sol).addTo(map).bindPopup(      'Sol');
+        L.marker(   mizar).addTo(map).bindPopup(    'Mizar');
+        L.marker(kruegerZ).addTo(map).bindPopup('Krueger-Z');
+        L.marker(   deneb).addTo(map).bindPopup(    'Deneb');
+
+        var travel = L.polyline([sol, deneb]).addTo(map);
+        function placePoint() {
+            var name = document.getElementById("createName").value;
+            var xpos = document.getElementById("createX").value;
+            var ypos = document.getElementById("createY").value;
+            if(name == null || name == "" || xpos == null || xpos == "" || ypos == null || ypos == "") {
+                console.log("name: " + name + ", xpos: " + xpos + ", ypos: " + ypos);
+                return;
+            }
+            if(xpos < 0 || xpos > 1000 || ypos < 0 || ypos > 1000) {
+                console.log("xpos: " + xpos + ", ypos: " + ypos);
+            }
+
+            L.marker(xy(xpos, ypos)).addTo(map).bindPopup(name);
+            
+        }
+    </script>
+</html>
