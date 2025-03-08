@@ -29,7 +29,7 @@
 }
 
 #buttonLabel {
-    top: 10%;
+    top: 6%;
     height: 40%;
     width: 18%;
     position: fixed;
@@ -72,7 +72,7 @@
 }
 
 .inputText1 {
-    top: 18%;
+    top: 14%;
     height: 6%;
     width: 15%;
     left: 2%;
@@ -80,7 +80,7 @@
 }
 
 .inputNumber1 {
-    top: 25%;
+    top: 21%;
     height: 6%;
     width: 15%;
     left: 2%;
@@ -88,7 +88,7 @@
 }
 
 .inputNumber2 {
-    top: 32%;
+    top: 28%;
     height: 6%;
     width: 15%;
     left: 2%;
@@ -96,7 +96,7 @@
 } 
 
 .inputButton1 {
-    top: 40%;
+    top: 36%;
     height: 6%;
     width: 16%;
     left: 2%;
