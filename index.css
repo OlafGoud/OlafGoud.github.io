@@ -129,8 +129,8 @@
 
 
 #loadReadLabel {
-    top: 80%;
-    height: 18%;
+    top: 85%;
+    height: 13%;
     width: 18%;
     position: fixed;
     left: 1%;
@@ -140,34 +140,8 @@
     font-family: Arial;
 }
 
-.inputText2 {
-    top: 81%;
-    height: 5%;
-    width: 10%;
-    left: 2%;
-    position: fixed; 
-}
-
-.inputButton2 {
-    top: 81%;
-    height: 5%;
-    width: 5%;
-    left: 14%;
-    position: fixed; 
-}
-
-.inputButton3 {
-    top: 87%;
-    height: 5%;
-    width: 16%;
-    left: 2%;
-    position: fixed; 
-}
-
-
-
 .input-group {
-    top: 81%;
+    top: 86%;
     height: 5%;
     width: 10%;
     left: 2%;
@@ -207,7 +181,7 @@
 }
 
 .full-width-btn {
-    top: 87%;
+    top: 92%;
     height: 5%;
     width: 15%;
     left: 2%;
