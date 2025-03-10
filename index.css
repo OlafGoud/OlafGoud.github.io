@@ -1,6 +1,6 @@
 #map {
     height: 100%;
-    width: 70%;
+    width: 68%;
     position: fixed;
     left: 20%;
     background-color: rgb(64, 64, 64);
@@ -21,11 +21,12 @@
 
 #side2 {
     height: 100%;
-    width: 10%;
+    width: 12%;
     position: fixed;
-    left: 90%;
-    background-color: rgb(64, 64, 64);
     top: 0%;
+    left: 88%;
+    background-color: rgb(64, 64, 64);
+    overflow-y: auto;
 }
 
 #buttonLabel {
@@ -44,12 +45,10 @@
     background-color: #6e6e6e; /* Green */
     border: none;
     color: white;
-    padding: 16px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 5px;
@@ -104,6 +103,125 @@
 }
 
 .inputButton1:hover {
+    background-color: rgb(64, 64, 64); 
+    border: 2px solid #6e6e6e;
+}
+
+
+.marker-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 0;
+    background: rgb(171, 171, 171);
+    border: 1px solid rgb(171, 171, 171);
+    border-radius: 1px;
+}
+.delete-btn {
+    background: rgb(64, 64, 64);
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+
+#loadReadLabel {
+    top: 80%;
+    height: 18%;
+    width: 18%;
+    position: fixed;
+    left: 1%;
+    background-color: rgb(171, 171, 171);
+    border-radius: 5px;
+    text-align: center;
+    font-family: Arial;
+}
+
+.inputText2 {
+    top: 81%;
+    height: 5%;
+    width: 10%;
+    left: 2%;
+    position: fixed; 
+}
+
+.inputButton2 {
+    top: 81%;
+    height: 5%;
+    width: 5%;
+    left: 14%;
+    position: fixed; 
+}
+
+.inputButton3 {
+    top: 87%;
+    height: 5%;
+    width: 16%;
+    left: 2%;
+    position: fixed; 
+}
+
+
+
+.input-group {
+    top: 81%;
+    height: 5%;
+    width: 10%;
+    left: 2%;
+    position: fixed; 
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.input1 {
+    background-color: #6e6e6e; /* Green */
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    padding-left: 1%;
+    text-decoration: none;
+
+}
+
+.small-btn {
+    padding: 8px 12px;
+    background: #6e6e6e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.small-btn:hover {
+    background-color: rgb(64, 64, 64); 
+    border: 2px solid #6e6e6e;
+}
+.input1::placeholder {
+    color:rgba(244, 244, 244, 0.519)
+}
+
+.full-width-btn {
+    top: 87%;
+    height: 5%;
+    width: 15%;
+    left: 2%;
+    position: fixed; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6e6e6e; /* Green */
+    color: white;
+
+}
+
+
+.full-width-btn:hover {
     background-color: rgb(64, 64, 64); 
     border: 2px solid #6e6e6e;
 }

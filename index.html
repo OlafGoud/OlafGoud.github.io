@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>title</title>
+        <title>GTAV map</title>
         <link rel="stylesheet" href="/index.css" />
         <link rel="stylesheet" href="/leaflet/leaflet.css" />
         <script src="/leaflet/leaflet.js"></script>
@@ -18,10 +18,21 @@
                 <input type="number" class="inputText inputNumber2" id="createY" placeholder="Y map position" min="0" max="1000">
                 <input type="button" class="inputButton inputButton1" id="createButton" value="create" onclick="placePoint()">
             </div>
+            <div id="loadReadLabel">
+                <div class="input-group">
+                    <input type="text" id="loadsettings" class="input1" placeholder="Enter settings" autocomplete="off">
+                    <button class="small-btn" onclick="checkAndLoadSettings()">Click</button>
+                </div>
+            </div>
+            <button class="full-width-btn" onclick="copyToClipboard()">Full Width Button</button>
+
         </div>
         <div id="popupwindow">hoi</div>
     </body>
     <script>
+
+        var markers = [];
+
         var map = L.map('map', {
             crs: L.CRS.Simple,
             maxZoom: 4,
@@ -55,17 +66,84 @@
             if(xpos < 0 || xpos > 1000 || ypos < 0 || ypos > 1000) {
                 console.log("xpos: " + xpos + ", ypos: " + ypos);
             }
-
-            L.marker(xy(xpos, ypos)).addTo(map).bindPopup(name);
-            
+            addMarker(name, xpos, ypos);
         }
+
+        function addMarker(name, xpos, ypos) {
+            var marker = new L.marker(xy(xpos, ypos));
+            map.addLayer(marker);
+            marker.bindPopup(name);
+            markers.push({id: Date.now(), marker: marker, name: name, x: xpos, y: ypos});
+            updateSidebar();
+        }
+
+        function updateSidebar() {
+            var sidebar = document.getElementById("side2");
+            sidebar.innerHTML = "";
+            markers.forEach(({id, marker, name, x, y}, index) => {
+                var listItem = document.createElement("div");
+                listItem.classList.add('marker-item');
+                listItem.innerHTML = `
+                    <span>${name}, (${index})</span>
+                    <button class="delete-btn" onclick="removeMarker(${id})">X</button>
+                `
+                sidebar.appendChild(listItem);
+            });
+        }
+
 
         function onMapClick(e) {
             document.getElementById("createX").value = Math.round(e.latlng.lng * 100) / 100;
             document.getElementById("createY").value = Math.round(e.latlng.lat * 100) / 100;
         }
 
+        function removeMarker(markerId) {
+            markers = markers.filter(({ id, marker }) => {
+                if (id === markerId) {
+                    map.removeLayer(marker);
+                    return false; // Remove from array
+                }
+                return true;
+            });
+
+            updateSidebar(); // Refresh sidebar
+        }
+
+        const jsonArray = [
+        ]
+        const jsonString = JSON.stringify(jsonArray);
+        function loadJson(jsonText) {
+            var loadedJson = JSON.parse(jsonText);
+            loadedJson.forEach(item => {
+                console.log(`hoi ${item.name}`);
+                addMarker(item.name, item.x, item.y);   
+            });
+        }
+
+        function getJsonString() {
+            var newJsonArray = []
+            markers.forEach(({id, marker, name, x, y}, index) => {
+                newJsonArray.push({name, x, y});
+            });
+            return JSON.stringify(newJsonArray);
+        }
+
+        function copyToClipboard() {
+        navigator.clipboard.writeText(getJsonString())
+            .then(() => alert("Copied to clipboard!"))
+            .catch(err => console.error("Error copying text: ", err));
+        }
+
+        
+        loadJson(jsonString);
         map.on('click', onMapClick);
+
+        function checkAndLoadSettings() {
+            loadJson(document.getElementById("loadsettings").value);
+            document.getElementById("loadsettings").value = "";
+        }
+
+
 
     </script>
 </html>
