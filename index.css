@@ -1,4 +1,201 @@
-#map { 
-    height: 700px; 
-    width: 700px;
+#map {
+    height: 100%;
+    width: 68%;
+    position: fixed;
+    left: 20%;
+    background-color: rgb(64, 64, 64);
+    top: 0%;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+#side1 {
+    height: 100%;
+    width: 20%;
+    position: fixed;
+    left: 0%;
+    background-color: rgb(64, 64, 64);
+    top: 0%;
+}
+
+#side2 {
+    height: 100%;
+    width: 12%;
+    position: fixed;
+    top: 0%;
+    left: 88%;
+    background-color: rgb(64, 64, 64);
+    overflow-y: auto;
+}
+
+#buttonLabel {
+    top: 6%;
+    height: 40%;
+    width: 18%;
+    position: fixed;
+    left: 1%;
+    background-color: rgb(171, 171, 171);
+    border-radius: 5px;
+    text-align: center;
+    font-family: Arial;
+}
+
+.inputButton {
+    background-color: #6e6e6e; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.inputText {
+    background-color: #6e6e6e; /* Green */
+    border: none;
+    color: white;
+    padding-left: 1%;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    border-radius: 5px;
+}
+
+.inputText::placeholder {
+    color:rgba(244, 244, 244, 0.519)
+}
+
+.inputText1 {
+    top: 14%;
+    height: 6%;
+    width: 15%;
+    left: 2%;
+    position: fixed; 
+}
+
+.inputNumber1 {
+    top: 21%;
+    height: 6%;
+    width: 15%;
+    left: 2%;
+    position: fixed; 
+}
+
+.inputNumber2 {
+    top: 28%;
+    height: 6%;
+    width: 15%;
+    left: 2%;
+    position: fixed; 
+} 
+
+.inputButton1 {
+    top: 36%;
+    height: 6%;
+    width: 16%;
+    left: 2%;
+    position: fixed; 
+}
+
+.inputButton1:hover {
+    background-color: rgb(64, 64, 64); 
+    border: 2px solid #6e6e6e;
+}
+
+
+.marker-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 0;
+    background: rgb(171, 171, 171);
+    border: 1px solid rgb(171, 171, 171);
+    border-radius: 1px;
+}
+.delete-btn {
+    background: rgb(64, 64, 64);
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+
+#loadReadLabel {
+    top: 85%;
+    height: 13%;
+    width: 18%;
+    position: fixed;
+    left: 1%;
+    background-color: rgb(171, 171, 171);
+    border-radius: 5px;
+    text-align: center;
+    font-family: Arial;
+}
+
+.input-group {
+    top: 86%;
+    height: 5%;
+    width: 10%;
+    left: 2%;
+    position: fixed; 
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.input1 {
+    background-color: #6e6e6e; /* Green */
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    padding-left: 1%;
+    text-decoration: none;
+
+}
+
+.small-btn {
+    padding: 8px 12px;
+    background: #6e6e6e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.small-btn:hover {
+    background-color: rgb(64, 64, 64); 
+    border: 2px solid #6e6e6e;
+}
+.input1::placeholder {
+    color:rgba(244, 244, 244, 0.519)
+}
+
+.full-width-btn {
+    top: 92%;
+    height: 5%;
+    width: 15%;
+    left: 2%;
+    position: fixed; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6e6e6e; /* Green */
+    color: white;
+
+}
+
+
+.full-width-btn:hover {
+    background-color: rgb(64, 64, 64); 
+    border: 2px solid #6e6e6e;
 }

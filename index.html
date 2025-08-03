@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>map</title>
-        <link rel="stylesheet" href="/leaflet/leaflet.css" />
+        <title>GTAV map</title>
         <link rel="stylesheet" href="/index.css" />
+        <link rel="stylesheet" href="/leaflet/leaflet.css" />
         <script src="/leaflet/leaflet.js"></script>
+
     </head>
     <body>
+        <div id="side2"></div>
         <div id="map"></div>
+        <div id="side1">
+            <div id="buttonLabel">
+                <h3>Create marker</h3>
+                <input type="text" class="inputText inputText1" id="createName" placeholder="Name" autocomplete="off">
+                <input type="number" class="inputText inputNumber1" id="createX" placeholder="X map position" min="0" max="1000">
+                <input type="number" class="inputText inputNumber2" id="createY" placeholder="Y map position" min="0" max="1000">
+                <input type="button" class="inputButton inputButton1" id="createButton" value="create" onclick="placePoint()">
+            </div>
+            <div id="loadReadLabel">
+                <div class="input-group">
+                    <input type="text" id="loadsettings" class="input1" placeholder="Enter settings" autocomplete="off">
+                    <button class="small-btn" onclick="checkAndLoadSettings()">Load</button>
+                </div>
+            </div>
+            <button class="full-width-btn" onclick="copyToClipboard()">copy settings to clipboard</button>
 
+        </div>
+        <div id="popupwindow">hoi</div>
     </body>
     <script>
+
+        var markers = [];
+
         var map = L.map('map', {
             crs: L.CRS.Simple,
-            minZoom: -1,
-            maxZoom: 4
+            maxZoom: 4,
+            minZoom: 0,
+            render: L.SVG,
         });
-        
+
         var bounds = [[0,0], [1000,1000]];
-        var image = L.imageOverlay('/GTAVMAP8K.webp', bounds).addTo(map);
+        var image = L.imageOverlay('/GTAV8K.png', bounds).addTo(map);
         map.fitBounds(bounds);
+
+        
+
         var yx = L.latLng;
 
         var xy = function(x, y) {
@@ -29,18 +55,93 @@
             return yx(y, x);  // When doing xy(x, y);
         };
 
-        var home      = xy(505.0, 443.0);
-        var mizar    = xy( 41.6, 130.1);
-        var kruegerZ = xy( 13.4,  56.5);
-        var deneb    = xy(218.7,   8.3);
+        function placePoint() {
+            var name = document.getElementById("createName").value;
+            var xpos = document.getElementById("createX").value;
+            var ypos = document.getElementById("createY").value;
+            if(name == null || name == "" || xpos == null || xpos == "" || ypos == null || ypos == "") {
+                console.log("name: " + name + ", xpos: " + xpos + ", ypos: " + ypos);
+                return;
+            }
+            if(xpos < 0 || xpos > 1000 || ypos < 0 || ypos > 1000) {
+                console.log("xpos: " + xpos + ", ypos: " + ypos);
+            }
+            addMarker(name, xpos, ypos);
+        }
 
-        L.marker(     home).addTo(map).bindPopup(      'home');
-        L.marker(   mizar).addTo(map).bindPopup(    'Mizar');
-        L.marker(kruegerZ).addTo(map).bindPopup('Krueger-Z');
-        L.marker(   deneb).addTo(map).bindPopup(    'Deneb');
+        function addMarker(name, xpos, ypos) {
+            var marker = new L.marker(xy(xpos, ypos));
+            map.addLayer(marker);
+            marker.bindPopup(name);
+            markers.push({id: Date.now(), marker: marker, name: name, x: xpos, y: ypos});
+            updateSidebar();
+        }
 
-        var travel = L.polyline([sol, deneb]).addTo(map);
+        function updateSidebar() {
+            var sidebar = document.getElementById("side2");
+            sidebar.innerHTML = "";
+            markers.forEach(({id, marker, name, x, y}, index) => {
+                var listItem = document.createElement("div");
+                listItem.classList.add('marker-item');
+                listItem.innerHTML = `
+                    <span>${name}, (${index})</span>
+                    <button class="delete-btn" onclick="removeMarker(${id})">X</button>
+                `
+                sidebar.appendChild(listItem);
+            });
+        }
 
+
+        function onMapClick(e) {
+            document.getElementById("createX").value = Math.round(e.latlng.lng * 100) / 100;
+            document.getElementById("createY").value = Math.round(e.latlng.lat * 100) / 100;
+        }
+
+        function removeMarker(markerId) {
+            markers = markers.filter(({ id, marker }) => {
+                if (id === markerId) {
+                    map.removeLayer(marker);
+                    return false; // Remove from array
+                }
+                return true;
+            });
+
+            updateSidebar(); // Refresh sidebar
+        }
+
+        const jsonArray = [
+        ]
+        const jsonString = JSON.stringify(jsonArray);
+        function loadJson(jsonText) {
+            var loadedJson = JSON.parse(jsonText);
+            loadedJson.forEach(item => {
+                console.log(`hoi ${item.name}`);
+                addMarker(item.name, item.x, item.y);   
+            });
+        }
+
+        function getJsonString() {
+            var newJsonArray = []
+            markers.forEach(({id, marker, name, x, y}, index) => {
+                newJsonArray.push({name, x, y});
+            });
+            return JSON.stringify(newJsonArray);
+        }
+
+        function copyToClipboard() {
+        navigator.clipboard.writeText(getJsonString())
+            .then(() => alert("Copied to clipboard!"))
+            .catch(err => console.error("Error copying text: ", err));
+        }
+
+        
+        loadJson(jsonString);
+        map.on('click', onMapClick);
+
+        function checkAndLoadSettings() {
+            loadJson(document.getElementById("loadsettings").value);
+            document.getElementById("loadsettings").value = "";
+        }
 
 
 
